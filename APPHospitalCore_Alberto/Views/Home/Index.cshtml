@@ -1,0 +1,124 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="home">
+    <div class="home_slider_container">
+        <!-- Home Slider -->
+        <div class="owl-carousel owl-theme home_slider">
+
+            <!-- Slider Item -->
+            <div class="owl-item">
+                <div class="home_slider_background" style="background-image: url('@Url.Content("~/Images/home_background_1.jpg")');"></div>
+                <div class="home_content">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col">
+                                <div class="home_content_inner">
+                                    <div class="home_title"><h1>Nuestra Mision</h1></div>
+                                    <div class="home_text">
+                                        <p>
+                                            Ofrecer a los ciudadanos los mejores servicios y asistencia sanitaria posibles, centrándonos en el cuidado y bienestar de nuestros pacientes, así como de sus familiares,
+                                            trabajando en conjunto con los profesionales de atención primaria y otros centros sanitarios que remiten a sus pacientes a nuestro hospital, con los estudiantes,
+                                            los profesionales involucrados en la formación continua y los investigadores, todo ello establecido en el marco de una sociedad cada vez más exigente y preocupada por la salud.
+                                        </p>
+                                    </div>
+                                    <div class="button home_button">
+                                        <a asp-controller="Home" asp-action="About">Saber más</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slider Item -->
+            <div class="owl-item">
+                <div class="home_slider_background" style="background-image: url('@Url.Content("~/Images/home_background_1.jpg")');"></div>
+                <div class="home_content">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col">
+                                <div class="home_content_inner">
+                                    <div class="home_title"><h1>Nuestra Visión</h1></div>
+                                    <div class="home_text">
+                                        <p>
+                                            Seguir siendo centro de referencia y excelencia sanitaria, tanto a nivel asistencial como a nivel docente e investigador,
+                                            siempre centrando todo nuestro esfuerzo en nuestro compromiso con los pacientes y en mejorar y mantener la confianza y
+                                            la calidad percibida por ellos y por sus acompañantes.
+                                        </p>
+                                    </div>
+                                    <div class="button home_button">
+                                        <a asp-controller="Home" asp-action="About">Saber más</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Slider Item -->
+            <div class="owl-item">
+                <div class="home_slider_background" style="background-image: url('@Url.Content("~/Images/home_background_1.jpg")');"></div>
+                <div class="home_content">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col">
+                                <div class="home_content_inner">
+                                    <div class="home_title"><h1>Cuidamos de ti</h1></div>
+                                    <div class="home_text">
+                                        <p>
+                                            La vocación de gestionar mejor los recursos como elemento material para ampliar nuestra labor asistencial docente e investigadora, nos hace creer en que, bajo la línea de mantenimiento del sistema público, se pueda adquirir por parte de todos los profesionales y en los distintos niveles, una capacidad de gestión que nos haga más eficaces.
+                                            El crecimiento debe llevar aparejado un nivel de calidad asistencial acorde con las exigencias de la sociedad y esa calidad está definida por hacer, lo que hacemos bien, en cada servicio, y lo hacemos pensando que detrás de cada informe hay un enfermo y su familia.
+                                        </p>
+                                    </div>
+                                    <div class="button home_button">
+                                        <a asp-controller="Home" asp-action="About">Saber más</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Slider Progress -->
+        <div class="home_slider_progress"></div>
+    </div>
+</div>
+
+<!-- About -->
+
+<div class="about">
+    <div class="container">
+        <div class="row row-lg-eq-height">
+
+            <!-- About Content -->
+            <div class="col-lg-7">
+                <div class="about_content">
+                    <div class="section_title"><h2>Un gran equipo médico para atender sus necesidades.</h2></div>
+                    <div class="about_text">
+                        <p>
+                            Nuestro centro está dotado de un capital humano altamente cualificado, que busca la excelencia en todas sus actuaciones,
+                            y que cuenta con una de las carteras de servicio más amplias y competitivas del país. Casi 600 residentes de 48 especialidades
+                            diferentes estaban realizando su formación en el hospital durante el año 2018, además de los casi 50 integrantes de las
+                            tres especialidades de Enfermería.
+                        </p>
+                    </div>
+                    <div class="button about_button">
+                        <a asp-controller="Home" asp-action="About">Saber más</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- About Image -->
+            <div class="col-lg-5">
+                <div class="about_image"><img src="~/Images/about.png" alt=""></div>
+            </div>
+        </div>
+    </div>
+</div>

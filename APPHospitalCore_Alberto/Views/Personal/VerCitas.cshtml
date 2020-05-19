@@ -1,0 +1,61 @@
+﻿@using HospitalNuget.Models
+@model Cita
+
+@{
+    ViewBag.Title = "VerCitas";
+    DateTime fechaActual = ViewBag.fechaActual;
+}
+
+<div class="alignDerecha">
+    <a asp-controller="Home" asp-action="Index" class="btn btn-info">Volver</a>
+</div>
+<h2>Citas Pendientes</h2>
+<hr />
+
+<form asp-controller="Personal" asp-action="VerCitas" method="post">
+    <div class="form-horizontal" asp-validation-summary="None">
+        <input type="hidden" asp-for="PersonalId" id="personalId" name="personalId" value="@ViewBag.PersonalId" />
+
+        <div class="form-group">
+            <label asp-for="Fecha" class="control-label col-md-2"></label>
+            <div class="col-md-10">
+                <input asp-for="Fecha" value="@fechaActual.ToString("yyyy-MM-dd")" onchange="capturarFecha()" class="form-control" />
+                <span asp-validation-for="Fecha" class="text-danger"></span>
+                <div id="msgFecha"></div>
+            </div>
+        </div>
+    </div>
+</form>
+<div id="bloqueCitas"></div>
+<br />
+
+@section scripts
+{
+<script>
+    $(document).ready(function () {
+        capturarFecha();
+        setInterval(
+            function () {
+                capturarFecha();
+            },10000)
+    })
+
+    function capturarFecha() {
+        var fecha = $("#Fecha").val();
+        verCitas(fecha);
+    }
+
+    function verCitas(fecha) {
+        var medico = $("#personalId").val();
+            $.ajax({
+            url: '@Url.Action("_GetCitasDia", "Personal")',
+            type: 'GET',
+            cache: false,
+            data: { fecha: fecha, selectedPersonal: medico },
+            success: function (data) {
+                $("#bloqueCitas").html(data);
+            }
+        });
+    }
+</script>
+}

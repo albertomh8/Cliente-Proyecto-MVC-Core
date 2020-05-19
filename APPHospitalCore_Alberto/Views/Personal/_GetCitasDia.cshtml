@@ -1,0 +1,46 @@
+﻿@model IEnumerable<HospitalNuget.Models.Cita>
+
+
+@if (Model.Count() > 0)
+{
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Paciente.Nombre)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Fecha)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Hora)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Paciente.Nombre) @Html.DisplayFor(modelItem => item.Paciente.Apellidos)
+                </td>
+                <td>
+                    @item.Fecha.ToShortDateString()
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Hora)
+                </td>
+                <td>
+                    <a asp-controller="Paciente" asp-action="DetallesPaciente" asp-route-pacienteId="@item.PacienteId" class="btn btn-info">Detalles Paciente</a>
+                    <a asp-controller="Informe" asp-action="CrearInforme" asp-route-pacienteId="@item.PacienteId" class="btn btn-success">Crear Informe</a>
+                </td>
+            </tr>
+        }
+    </table>
+}
+else
+{
+    <br />
+    <div>
+        <h4 style="color:red">No tiene citas concertadas</h4>
+    </div>
+}

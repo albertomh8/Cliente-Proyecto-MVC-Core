@@ -1,0 +1,107 @@
+﻿@using HospitalNuget.Models
+@model Cita
+@{
+    ViewBag.Title = "EditarCita";
+}
+
+<h2>Cambiar Cita</h2>
+<hr />
+
+<div class="alignDerecha">
+    @Html.ActionLink("Volver", "Citas", "Paciente", null, new { @class = "btn btn-info" })
+</div>
+<br />
+<div>
+    <form asp-controller="Paciente" asp-action="CambiarCita" method="post">
+        <input type="hidden" asp-for="CitaId" />
+        <input type="hidden" asp-for="PacienteId" />
+        <input type="hidden" asp-for="PersonalId" id="personalId" name="personalId" value="@Model.PersonalId" />
+        <input type="hidden" asp-for="Personal.Turno" id="turno" name="turno" value="@ViewBag.Turno" />
+
+        <div class="form-group" asp-validation-summary="None">
+            <label asp-for="Fecha" class="control-label col-md-2"></label>
+            <div class="col-md-10">
+                <input asp-for="Fecha" value="@Model.Fecha.ToString("yyyy-MM-dd")" onchange="capturarFecha()" class="form-control" />
+                <span asp-validation-for="Fecha" class="text-danger"></span>
+                <div id="msgFecha">
+
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group" id="bloqueHoras">
+            <label asp-for="Hora" id="Hora" class="control-label col-md-2 control-label">Hora</label>
+            <div id="mostrarHoras" class="col-md-10" style="margin-top:1%">
+
+            </div>
+            <div id="msgHora"></div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <button type="submit" id="btnSubmit" class="btn btn-success btn-lg">Cambiar Cita</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            capturarFecha();
+
+            $("#btnSubmit").click(function (e) {
+                var turno = $("#turno").val();
+                var hora = $("input:radio[name=hora]:checked").val();
+                if (turno == 0 || hora == undefined) {
+                    e.preventDefault();
+                    $("#msgHora").css("color", "red");
+                    $("#msgHora").html("Por favor, seleccione una hora disponible");
+                    return false;
+                }
+            });
+        });
+
+         function capturarFecha() {
+            var fecha = $("#Fecha").val();
+            var d = new Date();
+            var currentDate = d.getFullYear() + "-" + ("0" + (d.getMonth() + 1)).slice(-2) + "-" + ("0" + d.getDate()).slice(-2);
+            var currentDateEsp = ("0" + d.getDate()).slice(-2) + "-" + ("0" + (d.getMonth() + 1)).slice(-2) + "-" + d.getFullYear();
+             if (fecha < currentDate) {
+                $("#msgFecha").css("color", "red");
+                 $("#msgFecha").html("Por favor, la fecha debe ser a partir del " + currentDateEsp);
+                 $("#bloqueHoras").hide();
+                return false;
+            }
+            else {
+                $("#msgFecha").html("");
+                $("#bloqueHoras").show();
+                capturarHoras();
+                return true;
+            }
+        }
+
+        function capturarHoras() {
+            var medico = $("#personalId").val();
+            var turno = $("#turno").val();
+            var fecha = $("#Fecha").val();
+            if (medico != 0 && turno != 0) {
+                $.ajax({
+                    url: '@Url.Action("_GetHorasDisponibles", "Paciente")',
+                    type: 'GET',
+                    data: { selectedPersonal: medico, turno: turno, fecha: fecha },
+                    success: function (result) {
+                        $("#mostrarHoras").html("");
+                        $("#mostrarHoras").html(result);
+                        $("#mostrarHoras").show();
+                    }
+                });
+            }
+            else {
+                $("#mostrarHoras").html("");
+                $("#mostrarHoras").hide();
+            }
+        }
+    </script>
+}

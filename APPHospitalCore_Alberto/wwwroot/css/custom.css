@@ -1,0 +1,17 @@
+﻿.alignDerecha{
+    text-align:right;
+}
+
+.padre {
+
+    display:flex;
+}
+
+.hijo {
+    position:relative;
+    flex-direction: row-reverse;
+}
+
+.logoCustom {
+    margin-left:-95px;
+}

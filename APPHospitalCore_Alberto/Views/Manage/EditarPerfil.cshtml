@@ -1,0 +1,286 @@
+﻿@using HospitalNuget.Models
+@using APPHospitalCore_Alberto.ViewModels
+@model Perfil_ViewModel
+
+@{
+    ViewBag.Title = "EditarPerfil";
+    List<Especialidad> especialidades = ViewBag.Especialidades;
+    int UserId = ViewBag.UserId;
+}
+
+<h2>Editar perfil</h2>
+<hr />
+
+@if (Model != null)
+{
+    if (Model.Paciente != null)
+    {
+        if (User.IsInRole("Administrador"))
+        {
+            UserId = Model.Paciente.UserId;
+        }
+        <form asp-controller="Manage" asp-action="EditarPerfil" method="post">
+            <div class="form-horizontal" asp-validation-summary="None">
+                <input type="hidden" asp-for="Paciente.PacienteId" />
+                <input type="hidden" asp-for="Paciente.UserId" />
+
+                <div class="form-group">
+                    <label asp-for="Paciente.DNI" class="control-label col-md-2"></label>
+                    <div class="col-md-10">
+                        <input asp-for="Paciente.DNI" class="form-control" />
+                        <span asp-validation-for="Paciente.DNI" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Paciente.Nombre" class="control-label col-md-2"></label>
+                    <div class="col-md-10">
+                        <input asp-for="Paciente.Nombre" class="form-control" />
+                        <span asp-validation-for="Paciente.Nombre" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Paciente.Apellidos" class="control-label col-md-2"></label>
+                    <div class="col-md-10">
+                        <input asp-for="Paciente.Apellidos" class="form-control" />
+                        <span asp-validation-for="Paciente.Apellidos" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Paciente.Fecha_Nacimiento" class="control-label col-md-2"></label>
+                    <div class="col-md-10">
+                        <input asp-for="Paciente.Fecha_Nacimiento" class="form-control" />
+                        <span asp-validation-for="Paciente.Fecha_Nacimiento" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Paciente.Sexo" class="control-label col-md-2"></label>
+                    <div class="col-md-10">
+                        <select asp-for="Paciente.Sexo" asp-items="Html.GetEnumSelectList(typeof(Sexo))" class="form-control">
+                            <option selected="selected" value="0">--Selecciona Sexo--</option>
+                        </select>
+                        <span asp-validation-for="Paciente.Sexo" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Paciente.Telefono" class="control-label col-md-2"></label>
+                    <div class="col-md-10">
+                        <input asp-for="Paciente.Telefono" class="form-control" />
+                        <span asp-validation-for="Paciente.Telefono" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Paciente.Ciudad" class="control-label col-md-2"></label>
+                    <div class="col-md-10">
+                        <input asp-for="Paciente.Ciudad" class="form-control" />
+                        <span asp-validation-for="Paciente.Ciudad" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Paciente.Direccion" class="control-label col-md-2"></label>
+                    <div class="col-md-10">
+                        <input asp-for="Paciente.Direccion" class="form-control" />
+                        <span asp-validation-for="Paciente.Direccion" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Paciente.CP" class="control-label col-md-2"></label>
+                    <div class="col-md-10">
+                        <input asp-for="Paciente.CP" class="form-control" />
+                        <span asp-validation-for="Paciente.CP" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Paciente.CP" class="control-label col-md-2"></label>
+                    <div class="col-md-10">
+                        <input asp-for="Paciente.Email" class="form-control" />
+                        <span asp-validation-for="Paciente.Email" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Paciente.NSS" class="control-label col-md-2"></label>
+                    <div class="col-md-10">
+                        <input asp-for="Paciente.NSS" class="form-control" />
+                        <span asp-validation-for="Paciente.NSS" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Editar" class="btn btn-success" />
+                        <a asp-controller="Manage" asp-action="VerPerfil" class="btn btn-info" asp-route-userLogged="@UserId">Volver</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    }
+    if (Model.Personal != null)
+    {
+        if (User.IsInRole("Administrador"))
+        {
+            UserId = Model.Personal.UserId;
+        }
+        <form asp-controller="Manage" asp-action="EditarPerfil" method="post">
+            <div class="form-horizontal" asp-validation-summary="None">
+
+                <input type="hidden" asp-for="Personal.PersonalId" />
+                <input type="hidden" asp-for="Personal.UserId" />
+
+                <div class="form-group">
+                    <label asp-for="Personal.DNI" class="control-label col-md-2"></label>
+                    <div class="col-md-10">
+                        <input asp-for="Personal.DNI" class="form-control" />
+                        <span asp-validation-for="Personal.DNI" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Personal.Nombre" class="control-label col-md-2"></label>
+                    <div class="col-md-10">
+                        <input asp-for="Personal.Nombre" class="form-control" />
+                        <span asp-validation-for="Personal.Nombre" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Personal.Apellidos" class="control-label col-md-2"></label>
+                    <div class="col-md-10">
+                        <input asp-for="Personal.Apellidos" class="form-control" />
+                        <span asp-validation-for="Personal.Apellidos" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Personal.Fecha_Nacimiento" class="control-label col-md-2"></label>
+                    <div class="col-md-10">
+                        <input asp-for="Personal.Fecha_Nacimiento" class="form-control" />
+                        <span asp-validation-for="Personal.Fecha_Nacimiento" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Personal.Telefono" class="control-label col-md-2"></label>
+                    <div class="col-md-10">
+                        <input asp-for="Personal.Telefono" class="form-control" />
+                        <span asp-validation-for="Personal.Telefono" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Personal.Ciudad" class="control-label col-md-2"></label>
+                    <div class="col-md-10">
+                        <input asp-for="Personal.Ciudad" class="form-control" />
+                        <span asp-validation-for="Personal.Ciudad" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Personal.Direccion" class="control-label col-md-2"></label>
+                    <div class="col-md-10">
+                        <input asp-for="Personal.Direccion" class="form-control" />
+                        <span asp-validation-for="Personal.Direccion" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Personal.Email" class="control-label col-md-2"></label>
+                    <div class="col-md-10">
+                        <input asp-for="Personal.Email" class="form-control" />
+                        <span asp-validation-for="Personal.Email" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Personal.NumColegiado" class="control-label col-md-2"></label>
+                    <div class="col-md-10">
+                        <input asp-for="Personal.NumColegiado" class="form-control" />
+                        <span asp-validation-for="Personal.NumColegiado" class="text-danger"></span>
+                    </div>
+                </div>
+
+                @if (User.IsInRole("Administrador"))
+                {
+                    <div class="form-group">
+                        <label asp-for="Personal.EspecialidadId" class="control-label col-md-2"></label>
+                        <div class="col-md-10">
+                            <select asp-for="Personal.EspecialidadId" asp-items="@(new SelectList(especialidades,"EspecialidadId","Nombre"))" class="form-control">
+                                <option selected="selected" value="0">--Selecciona Especialidad--</option>
+                            </select>
+                            @*@Html.DropDownListFor(model => model.Personal.EspecialidadId, new SelectList(especialidades, "EspecialidadId", "Nombre"),
+                                "--Selecciona Especialidad--", new { htmlAttributes = new { @class = "form-control" } })*@
+                            <span asp-validation-for="Personal.EspecialidadId" class="text-danger"></span>
+                        </div>
+                        <div id="msgEspecialidad"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label asp-for="Personal.Turno" class="control-label col-md-2"></label>
+                        <div class="col-md-10">
+                            <select asp-for="Personal.Turno" asp-items="Html.GetEnumSelectList(typeof(Turno))" class="form-control">
+                                <option selected="selected" value="0">--Selecciona Turno--</option>
+                            </select>
+                            @*@Html.DropDownListFor(model => model.Personal.Turno, EnumHelper.GetSelectList(typeof(Turno)), "--Selecciona Turno--",
+                                new { htmlAttributes = new { @class = "form-control" } })*@
+                            @Html.ValidationMessageFor(model => model.Personal.Turno, "", new { @class = "text-danger" })
+                        </div>
+                        <div id="msgTurno"></div>
+                    </div>
+                }
+                else
+                {
+                    <input type="hidden" asp-for="Personal.EspecialidadId" />
+                    <input type="hidden" asp-for="Personal.Turno" />
+                }
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" id="btnSubmit" value="Editar" class="btn btn-success" />
+                        <a asp-controller="Manage" asp-action="VerPerfil" class="btn btn-info" asp-route-userLogged="@UserId">Volver</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+    }
+}
+else
+{
+    <h1 style="color:red">Ha habido un problema al cargar su perfil, contacte con el administrador.</h1>
+}
+
+@section scripts
+{
+    <script>
+        $(document).ready(function () {
+            $("#btnSubmit").click(function (e) {
+                var turno = $("#Personal_Turno option:selected").val();
+                var especialidadId = $("#Personal_EspecialidadId option:selected").val();
+                if (turno == "") {
+                    e.preventDefault();
+                    $("#msgTurno").css("color", "red");
+                    $("#msgTurno").html("Por favor, seleccione un turno");
+                    return false;
+                }
+                else {
+                    $("#msgTurno").html("");
+                }
+                if (especialidadId == "") {
+                    e.preventDefault();
+                    $("#msgEspecialidad").css("color", "red");
+                    $("#msgEspecialidad").html("Por favor, seleccione una especialidad");
+                    return false;
+                }
+                else {
+                    $("#msgEspecialidad").html("");
+                }
+            });
+        });
+    </script>
+}

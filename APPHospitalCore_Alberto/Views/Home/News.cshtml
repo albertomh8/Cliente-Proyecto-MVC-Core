@@ -1,0 +1,199 @@
+﻿
+@{
+    ViewBag.Title = "News";
+}
+
+<environment include="Development,Production">
+    <link href="~/css/news.css" rel="stylesheet" />
+    <link href="~/css/news_responsive.css" rel="stylesheet" />
+</environment>
+
+<div class="super_container">
+
+    <!-- News -->
+
+    <div class="news">
+        <div class="container">
+            <div class="row">
+
+                <!-- News Posts -->
+                <div class="col-lg-8">
+                    <div class="news_posts">
+
+                        <!-- News Post -->
+                        <div class="news_post">
+                            <div class="news_image">
+                                <img src="~/Images/news_1.jpg" alt="">
+                                <div class="news_date d-flex flex-column align-items-center justify-content-center">
+                                    <div class="news_day">26</div>
+                                    <div class="news_month">Febrero</div>
+                                </div>
+                            </div>
+                            <div class="news_body">
+                                <div class="news_title"><a href="#">Día Mundial de las Enfermedades Raras</a></div>
+                                <div class="news_info">
+                                    <ul>
+                                        <li class="news_author"><span>Por </span><a href="#">Dr. William Smith</a></li>
+                                        <li class="news_tags"><span>En </span><a href="#">Terapia</a></li>
+                                        <li class="news_comments"><a href="#">3 Comentarios</a></li>
+                                    </ul>
+                                </div>
+                                <div class="news_text">
+                                    <p>
+                                        Las publicaciones sobre el tema “Enfermedades raras” en IntraMed han estado presentes desde el inicio de nuestra actividad,
+                                        siempre sacudidas por el estremecimiento que el contacto humano impone a la biología, a la investigación científica o a la mera difusión.
+                                        En el Día Mundial de las Enfermedades Raras queremos anunciar el próximo congreso sobre el tema a realizarse en Buenos Aires entre el
+                                        25 y el 27 de marzo próximo.
+                                    </p>
+                                </div>
+                                <div class="news_link"><a href="#">Leer más</a></div>
+                            </div>
+                        </div>
+
+                        <!-- News Post -->
+                        <div class="news_post">
+                            <div class="news_image">
+                                <img src="~/Images/news_2.jpg" alt="">
+                                <div class="news_date d-flex flex-column align-items-center justify-content-center">
+                                    <div class="news_day">19</div>
+                                    <div class="news_month">Febrero</div>
+                                </div>
+                            </div>
+                            <div class="news_body">
+                                <div class="news_title"><a href="#">Coronavirus: ha matado a más personas que el SARS y el MERS</a></div>
+                                <div class="news_info">
+                                    <ul>
+                                        <li class="news_author"><span>Por </span><a href="#">Dra. Elisabeth Mahase</a></li>
+                                        <li class="news_tags"><span>En </span><a href="#">Artículos Médicos</a></li>
+                                        <li class="news_comments"><a href="#">45 Comentarios</a></li>
+                                    </ul>
+                                </div>
+                                <div class="news_text">
+                                    <p>
+                                        El nuevo coronavirus que hasta ahora se ha extendido desde China a 26 países de todo el mundo no parece ser tan
+                                        "mortal como otros coronavirus, incluidos el SARS y el MERS", dijo la Organización Mundial de la Salud..
+                                    </p>
+                                </div>
+                                <div class="news_link"><a href="#">Leer más</a></div>
+                            </div>
+                        </div>
+
+                        <!-- News Post -->
+                        <div class="news_post">
+                            <div class="news_image">
+                                <img src="~/Images/news_3.jpg" alt="">
+                                <div class="news_date d-flex flex-column align-items-center justify-content-center">
+                                    <div class="news_day">15</div>
+                                    <div class="news_month">Febrero</div>
+                                </div>
+                            </div>
+                            <div class="news_body">
+                                <div class="news_title"><a href="#">¿Cuánto nos cuesta la salud?</a></div>
+                                <div class="news_info">
+                                    <ul>
+                                        <li class="news_author"><span>Por </span><a href="#">Dr. William Smith</a></li>
+                                        <li class="news_tags"><span>En </span><a href="#">Terapia</a></li>
+                                        <li class="news_comments"><a href="#">3 Comentarios</a></li>
+                                    </ul>
+                                </div>
+                                <div class="news_text">
+                                    <p>
+                                        Según la última Estadística del Gasto Sanitario Público, publicada hace menos de un año, el gasto sanitario público en España
+                                        en 2017 fue de 68.483 millones de euros, el 5,9% del producto interior bruto (PIB), lo que representa un gasto per capita de 1.472
+                                        euros por habitante. El informe, realizado por la Subdirección General de Cartera de Servicios, se centra en el
+                                        quinquenio 2013-2017, donde la media anual de crecimiento del gasto sanitario público fue del 2,6%.
+                                    </p>
+                                </div>
+                                <div class="news_link"><a href="#">Leer más</a></div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="news_page_nav">
+                        <ul>
+                            <li class="active"><a href="#">1</a></li>
+                            <li><a href="#">2</a></li>
+                            <li><a href="#">3</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Sidebar -->
+                <div class="col-lg-4">
+                    <div class="sidebar">
+
+                        <!-- Search -->
+                        <div class="sidebar_search">
+                            <form action="#" id="sidebar_search_form" class="sidebar_search_form">
+                                <input type="text" class="search_input" placeholder="Buscar" required="required">
+                                <button class="search_button"><img src="~/Images/search.png" alt=""></button>
+                            </form>
+                        </div>
+
+                        <!-- Categories -->
+                        <div class="sidebar_categories sidebar_section">
+                            <div class="sidebar_section_title">
+                                <div class="sidebar_title">Categorias</div>
+                            </div>
+                            <ul>
+                                <li><a href="#">Artículos Médicos</a></li>
+                                <li><a href="#">Terapia</a></li>
+                                <li><a href="#">Información Útil</a></li>
+                                <li><a href="#">Sin Categorizar</a></li>
+                            </ul>
+                        </div>
+
+                        <!-- Archives -->
+                        <div class="sidebar_archives sidebar_section">
+                            <div class="sidebar_section_title">
+                                <div class="sidebar_title">Archivos</div>
+                            </div>
+                            <ul>
+                                <li><a href="#">Noviembre 2019</a></li>
+                                <li><a href="#">Diciembre 2019</a></li>
+                                <li><a href="#">Enero 2020</a></li>
+                                <li><a href="#">Febrero 2020</a></li>
+                            </ul>
+                        </div>
+
+                        <!-- Working Hours -->
+                        <div class="box working_hours">
+                            <div class="box_icon d-flex flex-column align-items-start justify-content-center"><div style="width:29px; height:29px;"><img src="~/Images/alarm-clock.svg" alt=""></div></div>
+                            <div class="box_title">Horas Laborales</div>
+                            <div class="working_hours_list">
+                                <ul>
+                                    <li class="d-flex flex-row align-items-center justify-content-start">
+                                        <div>Lunes – Viernes</div>
+                                        <div class="ml-auto">9.00 – 21.00</div>
+                                    </li>
+                                    <li class="d-flex flex-row align-items-center justify-content-start">
+                                        <div>Sábados</div>
+                                        <div class="ml-auto">9.30 – 21.00</div>
+                                    </li>
+                                    <li class="d-flex flex-row align-items-center justify-content-start">
+                                        <div>Domingos</div>
+                                        <div class="ml-auto">9.30 – 20.30</div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Ad -->
+                        <div class="ad d-flex flex-column align-items-center justify-content-end">
+                            <div class="ad_background" style="background-image:url(../../Images/ad.jpg)"></div>
+                            <div class="ad_content">
+                                <div class="ad_text">Ven y toma un <span>chequeo gratis</span></div>
+                                <div class="button ad_button"><a href="#">Saber más</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<environment include="Development,Production">
+    <script src="~/js/news.js"></script>
+</environment>

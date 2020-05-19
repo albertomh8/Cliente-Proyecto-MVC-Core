@@ -1,0 +1,123 @@
+﻿@using HospitalNuget.Models
+@model Personal
+
+@{
+    ViewBag.Title = "CrearPersonal";
+    Usuarios user = ViewBag.User;
+    List<Especialidad> especialidades = ViewBag.Especialidades;
+}
+
+<h2>Perfil de usuario de @user.Email</h2>
+<hr />
+
+<form asp-controller="Personal" asp-action="CrearPersonal" method="post">
+    <div class="form-horizontal" asp-validation-summary="None">
+        <div class="form-group">
+            <label asp-for="DNI" class="control-label col-md-2"></label>
+        <div class="col-md-10">
+            <input asp-for="DNI" class="form-control" />
+            <span asp-validation-for="DNI" class="text-danger"></span>
+        </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Nombre" class="control-label col-md-2"></label>
+            <div class="col-md-10">
+                <input asp-for="Nombre" class="form-control" />
+                <span asp-validation-for="Nombre" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Apellidos" class="control-label col-md-2"></label>
+            <div class="col-md-10">
+                <input asp-for="Apellidos" class="form-control" />
+                <span asp-validation-for="Apellidos" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Fecha_Nacimiento" class="control-label col-md-2"></label>
+            <div class="col-md-10">
+                <input asp-for="Fecha_Nacimiento" class="form-control" />
+                <span asp-validation-for="Fecha_Nacimiento" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Telefono" class="control-label col-md-2"></label>
+            <div class="col-md-10">
+                <input asp-for="Telefono" class="form-control" />
+                <span asp-validation-for="Telefono" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Ciudad" class="control-label col-md-2"></label>
+            <div class="col-md-10">
+                <input asp-for="Ciudad" class="form-control" />
+                <span asp-validation-for="Ciudad" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Direccion" class="control-label col-md-2"></label>
+            <div class="col-md-10">
+                <input asp-for="Direccion" class="form-control" />
+                <span asp-validation-for="Direccion" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Email" class="control-label col-md-2"></label>
+            <div class="col-md-10">
+                <input asp-for="Email" value="@user.Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="NumColegiado" class="control-label col-md-2"></label>
+            <div class="col-md-10">
+                <input asp-for="NumColegiado" class="form-control" />
+                <span asp-validation-for="NumColegiado" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="EspecialidadId" class="control-label col-md-2"></label>
+            <div class="col-md-10">
+                <select asp-for="EspecialidadId" asp-items="@(new SelectList(especialidades,"EspecialidadId","Nombre"))" class="form-control">
+                    <option selected="selected" value="0">--Selecciona Especialidad--</option>
+                </select>
+                <span asp-validation-for="EspecialidadId" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Turno" class="control-label col-md-2"></label>
+            <div class="col-md-10">
+                <select asp-for="Turno" asp-items="Html.GetEnumSelectList(typeof(Turno))" class="form-control">
+                    <option selected="selected" value="0">--Selecciona Turno--</option>
+                </select>
+                <span asp-validation-for="Turno" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-10">
+                <input type="hidden" asp-for="UserId" value="@user.UserId" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Crear Perfil" class="btn btn-success" />
+            </div>
+        </div>
+    </div>
+</form>
+
+<div>
+    <a asp-controller="Administrador" asp-action="ListaUsuarios" class="btn btn-info">Volver a la lista</a>
+</div>

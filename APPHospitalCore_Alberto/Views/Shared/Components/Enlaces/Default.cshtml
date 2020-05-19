@@ -1,0 +1,128 @@
+﻿@using HospitalNuget.Models
+@using System.Security.Claims
+@{
+    var claims = ((ClaimsIdentity)User.Identity).Claims;
+    int userId = 0;
+    if (claims.Count() != 0)
+    {
+        userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+    }
+
+    var estiloBack = "";
+    if (User.IsInRole("Paciente") || User.IsInRole("Médico") || User.IsInRole("Administrador"))
+    {
+        estiloBack = "background-color:#283290";
+    }
+}
+<style>
+    #enlaces-section > * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    #enlaces-section > li {
+        list-style-type: none;
+        position: relative;
+        width: 120px;
+    }
+
+        #enlaces-section > li a {
+            text-decoration: none;
+            display: inline-block;
+            padding: 5px 10px;
+            width: 120px;
+            height: 30px;
+            border: 1px solid #000;
+            color: #fff;
+            background-color: #000;
+        }
+
+            #enlaces-section > li a:hover {
+                color: #000;
+                background-color: #fff;
+            }
+
+    #enlaces-section > nav li ul {
+        display: none;
+        position: absolute;
+        top: 0px;
+        left: 120px;
+    }
+
+    #enlaces-section > nav li:hover ul {
+        display: block;
+    }
+
+    .menuContenido {
+        position: fixed;
+        min-width: 180px;
+        z-index: 2;
+        width: 15.75%;
+        height: 923px;
+    }
+
+        .menuContenido a {
+            font-size: 15px;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            background-color: #283290;
+        }
+
+            .menuContenido a:hover {
+                color: #fffeff;
+                text-decoration: none;
+            }
+</style>
+
+<div class="menuContenido" style="@estiloBack">
+    @if (User.IsInRole("Paciente"))
+    {
+        <ul>
+            <li>
+                <a asp-action="Citas" asp-controller="Paciente" class="btn btn-dark">Mis Citas</a>
+            </li>
+            <li>
+                <a asp-action="Informes" asp-controller="Informe" class="btn btn-dark">Mis Informes</a>
+            </li>
+            <li>
+                <div id="enlaces-section">
+                    <nav>
+                        <ul>
+                            <li>
+                                <a href="#" class="btn btn-dark">Calculadoras de Salud</a>
+                                <ul>
+                                    <li><a asp-action="CalcularMasaCorporal" asp-controller="Home" class="btn btn-dark">Índice de Masa Corporal</a></li>
+                                    <li><a asp-action="CalcularPesoIdeal" asp-controller="Home" class="btn btn-dark">Calcular Peso Ideal</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            </li>
+            <li>
+                <a asp-action="VerPerfil" asp-controller="Manage" asp-route-userLogged="@userId" class="btn btn-dark">Mi Perfil</a>
+            </li>
+        </ul>
+    }
+    else if (User.IsInRole("Médico"))
+    {
+        <ul>
+            <li>
+                <a asp-action="VerCitas" asp-controller="Personal" asp-route-userLogged="@userId" class="btn btn-dark">Citas del día</a>
+            </li>
+            <li>
+                <a asp-action="VerPerfil" asp-controller="Manage" asp-route-userLogged="@userId" class="btn btn-dark">Mi Perfil</a>
+            </li>
+        </ul>
+    }
+    else if (User.IsInRole("Administrador"))
+    {
+        <ul>
+            <li>
+                <a asp-action="ListaUsuarios" asp-controller="Administrador" class="btn btn-dark">Administración</a>
+            </li>
+        </ul>
+    }
+</div>

@@ -1,0 +1,73 @@
+﻿@{
+    ViewBag.Title = "CalcularPesoIdeal";
+
+}
+
+<h2>Calcular tu peso ideal</h2>
+<hr />
+
+<div class="form-horizontal">
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <div class="form-group">
+        <label for="altura" class="control-label col-md-2">Introduce tu altura (cm)</label>
+        <div class="col-md-offset-2 col-md-10">
+            <input type="text" id="altura" name="altura" class="form-control" />
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="Sexo" id="Sexo" class="control-label col-md-2 control-label">Sexo</label>
+        <div class="col-md-10">
+            <select id="sexo" class="form-control">
+                @foreach (var sexo in ViewBag.Sexo)
+                {
+                    <option value="@sexo">@sexo</option>
+                }
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="peso" class="control-label col-md-4">Peso ideal</label>
+        <div class="col-md-offset-2 col-md-10">
+            <input type="text" id="peso" name="peso" readonly class="form-control" />
+        </div>
+        <div id="mensaje" class="col-md-offset-2 col-md-10"></div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="button" id="btnCalcular" value="Calcular" class="btn btn-success" />
+        </div>
+    </div>
+</div>
+
+
+@section scripts
+{
+    <script>
+        $(function () {
+            $("#btnCalcular").click(function () {
+                var altura = $("#altura").val();
+                var sexo = $("#sexo").val();
+                if (isNaN(altura) == false) {
+                    if (sexo == "Masculino") {
+                        var peso = altura - 100 - [altura - 150] / 4;
+                    }
+                    else {
+                        var peso = altura - 100 - [altura - 150] / 2.5;
+                    }
+
+                    $("#peso").val(peso + " Kg");
+                    $("#mensaje").html("");
+                }
+                else {
+                    $("#peso").val("");
+                    $("#mensaje").html("Los datos introducidos no son validos");
+                    $("#mensaje").css("color", "red");
+                }
+            })
+        })
+    </script>
+}

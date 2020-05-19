@@ -1,0 +1,27 @@
+﻿@using HospitalNuget.Models
+@using System.Security.Claims
+
+@{
+    string userId = Context.User.Claims.SingleOrDefault(u => u.Type == ClaimTypes.NameIdentifier)?.Value;
+    string email = Context.User.Claims.SingleOrDefault(u => u.Type == ClaimTypes.Name)?.Value;
+    string role = Context.User.Claims.SingleOrDefault(u => u.Type == ClaimTypes.Role)?.Value;
+}
+
+@if (User.Identity.IsAuthenticated)
+{
+    if (role != Role.Administrador.ToString())
+    {
+        <li class="nav-item px-2" style="color:white"><a asp-controller="Manage" asp-action="VerPerfil" asp-route-userLogged="@userId">@email</a></li>
+        <li class="nav-item px-2"><a asp-controller="Manage" asp-action="LogOut">LogOut</a></li>
+    }
+    else
+    {
+        <li class="nav-item px-2" style="color:white"><a href="#">@email</a></li>
+        <li class="nav-item px-2"><a asp-controller="Manage" asp-action="LogOut">LogOut</a></li>
+    }
+}
+else
+{
+    <li class="nav-item px-2"><a asp-controller="Manage" asp-action="RegistrarUsuario">Registrarse</a></li>
+    <li class="nav-item px-2"><a asp-controller="Manage" asp-action="Login">Login</a></li>
+}

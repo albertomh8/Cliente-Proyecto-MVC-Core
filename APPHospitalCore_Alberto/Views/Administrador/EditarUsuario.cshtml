@@ -1,0 +1,54 @@
+﻿@using HospitalNuget.Models
+@model Usuarios
+
+@{
+    ViewBag.Title = "EditarUsuario";
+}
+
+<h2>EditarUsuario</h2>
+<hr>
+
+<div class="alignDerecha">
+    <a asp-controller="Administrador" asp-action="ListaUsuarios" class="btn btn-info">Volver a la lista</a>
+</div>
+<form asp-controller="Administrador" asp-action="EditarUsuario" method="post">
+    <div class="form-horizontal" asp-validation-summary="None">
+        <h4>Usuarios</h4>
+        <hr />
+        <input type="hidden" asp-for="UserId" />
+        <input type="hidden" asp-for="Password" />
+        <input type="hidden" asp-for="ComparePassword" />
+
+        <div class="form-group">
+            <label asp-for="Email" class="control-label col-md-2"></label>
+            <div class="col-md-10">
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="NombreRole" class="control-label col-md-2"></label>
+            <div class="col-md-10">
+                <select asp-for="Role" asp-items="Html.GetEnumSelectList(typeof(Role))" class="form-control">
+                    <option selected="selected" value="0">--Selecciona Role--</option>
+                </select>
+                <span asp-validation-for="Role" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Activo" class="control-label col-md-2"></label>
+            <div class="col-md-10">
+                <input asp-for="Activo"  class="form-control" />
+                <span asp-validation-for="Activo" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Editar" class="btn btn-success" />
+            </div>
+        </div>
+    </div>
+</form>

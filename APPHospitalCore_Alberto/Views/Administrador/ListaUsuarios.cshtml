@@ -1,0 +1,89 @@
+﻿@using PagedList;
+@model IPagedList<HospitalNuget.Models.Usuarios>
+
+@{
+    ViewBag.Title = "ListaUsuarios";
+}
+
+<h2>Lista de usuarios registrados</h2>
+<hr />
+
+<nav>
+
+</nav>
+<form asp-controller="Administrador" asp-action="ListaUsuarios" method="post">
+    <p style="font-family: Ubuntu-Regular, sans-serif; font-size:24px">
+        Buscar por Email/Role: <input class="form-control" style="display:inline; margin-left:2%;margin-right:2%" type="text" name="SearchString" />
+        <input type="submit" value="Buscar" class="btn btn-success" />
+        <a asp-controller="Administrador" asp-action="CrearUsuario" class="btn btn-info">Crear Usuario</a>
+    </p>
+</form>
+<table class="table">
+    <tr>
+        <th>
+            <a asp-controller="Administrador" asp-action="ListaUsuarios" asp-route-sortOrder="@ViewBag.EmailSortParm">Email</a>
+        </th>
+        <th>
+            <a asp-controller="Administrador" asp-action="ListaUsuarios" asp-route-sortOrder="@ViewBag.RoleSortParm">Role</a>
+        </th>
+        <th>
+            <a asp-controller="Administrador" asp-action="ListaUsuarios" asp-route-sortOrder="@ViewBag.ActivoSortParm">¿Activo?</a>
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td style="font-size:17px">
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td style="font-size:17px">
+                @Html.DisplayFor(modelItem => item.NombreRole)
+            </td>
+            <td style="font-size:17px">
+                @Html.DisplayFor(modelItem => item.Activo)
+            </td>
+            <td style="font-size:17px">
+                <a asp-controller="Administrador" asp-action="EditarUsuario" asp-route-userId="@item.UserId" class="btn btn-danger">Editar</a>
+                @if (item.NombreRole != "Administrador")
+                {
+                    <a asp-controller="Administrador" asp-action="PerfilUsuario" asp-route-userId="@item.UserId" class="btn btn-info">Detalles</a>
+                }
+            </td>
+        </tr>
+    }
+</table>
+<div>
+    <nav>
+        <ul class="pagination">
+            <li class="page-item">
+                @if (Model.HasPreviousPage)
+                {
+                    <a class="previous page-link" asp-action="ListaUsuarios" asp-route-page="@(Model.PageNumber -1)">Anterior</a>
+                }
+                else
+                {
+                    <a class="previous page-link" onclick="event.preventDefault()" asp-action="ListaUsuarios" asp-route-page="@(Model.PageNumber -1)">Anterior</a>
+                }
+            </li>
+            <li class="page-item">
+                @for (int i = 1; i <= Model.PageCount; i++)
+                {
+                    <a class="next page-link active" asp-action="ListaUsuarios" asp-route-page="@i">@i</a>
+                }
+            </li>
+            <li class="page-item">
+                @if (Model.HasNextPage)
+                {
+                    <a class="next page-link" asp-action="ListaUsuarios" asp-route-page="@(Model.PageNumber +1)">Siguiente</a>
+                }
+                else
+                {
+                    <a class="next page-link" onclick="event.preventDefault()" asp-action="ListaUsuarios" asp-route-page="@(Model.PageNumber +1)">Siguiente</a>
+                }
+            </li>
+        </ul>
+    </nav>
+    <p>Página @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount</p>
+</div>

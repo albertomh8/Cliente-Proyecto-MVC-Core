@@ -1,0 +1,40 @@
+﻿@using HospitalNuget.Models
+@using System.Security.Claims
+@model Paciente
+
+@{
+    ViewBag.Title = "DetallesPaciente";
+    int userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value);
+    int edad = ViewBag.Edad;
+}
+
+<h2>Paciente @Model.Nombre @Model.Apellidos</h2>
+<hr />
+
+<div>
+    <div>
+        <table class="table table-borderless">
+            <tr>
+                <td><strong>Paciente:</strong>  @Model.Nombre @Model.Apellidos</td>
+                <td><strong>Fecha Nacimiento:</strong>  @Model.Fecha_Nacimiento.ToShortDateString()</td>
+            </tr>
+            <tr>
+                <td><strong>DNI:</strong>  @Model.DNI</td>
+                <td><strong>Número de la Seguridad Social:</strong>  @Model.NSS</td>
+            </tr>
+            <tr>
+                <td><strong>Domicilio:</strong>  @Model.Direccion @Model.CP @Model.Ciudad</td>
+                <td><strong>Edad:</strong>  @edad          <strong>Sexo:</strong> @Model.Sexo</td>
+            </tr>
+            <tr>
+                <td><strong>Teléfono: </strong>  @Model.Telefono</td>
+                <td><strong>Email: </strong>  @Model.Email</td>
+            </tr>
+        </table>
+    </div>
+</div>
+<p class="alignDerecha">
+    <a asp-controller="Personal" asp-action="VerCitas" asp-route-userLogged="@userId" class="btn btn-info">Volver</a>
+    <a asp-controller="Informe" asp-action="Informes" asp-route-pacienteId="@Model.PacienteId" class="btn btn-success">Informes Paciente</a>
+</p>
+<br />

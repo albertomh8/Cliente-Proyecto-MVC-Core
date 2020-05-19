@@ -1,0 +1,110 @@
+﻿@using PagedList;
+@model IPagedList<HospitalNuget.Models.Cita>
+
+@{
+    ViewBag.Title = "Citas";
+}
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $(".btnEliminar").click(function (e) {
+                var cita = e.target.search;
+                e.preventDefault();
+                Swal.fire({
+                    title: '¿Estás seguro?',
+                    text: '¿Quieres eliminar esta cita?',
+                    icon: 'warning',
+                    buttons: true,
+                    showCancelButton: true,
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Eliminar!',
+                }).then((willDelete) => {
+                    if (willDelete.value) {
+                        window.location.href = '@Url.Action("AnularCita","Paciente")' + cita;
+                    }
+                })
+            });
+        });
+    </script>
+}
+
+<h2>Próximas Citas</h2>
+<hr />
+<div>
+    <form asp-controller="Paciente" asp-action="Citas" method="post">
+        <p style="font-family: Ubuntu-Regular, sans-serif; font-size:24px">
+            Buscar:<input class="form-control" style="display:inline; margin-left:2%;margin-right:2%" type="text" name="SearchString" />
+            <input type="submit" value="Buscar" class="btn btn-success" />
+            <a asp-controller="Paciente" asp-action="SeleccionarCita" class="btn btn-info">Concertar Cita</a>
+        </p>
+    </form>
+</div>
+<br />
+@if (Model.Count != 0)
+{
+    <div>
+        <table class="table table-hover">
+            <tr>
+                <th style="font-size:20px"><a asp-controller="Paciente" asp-action="Citas" asp-route-sortOrder="@ViewBag.FechaSortParm">Fecha</a></th>
+                <th style="font-size:17px"><a asp-controller="Paciente" asp-action="Citas" asp-route-sortOrder="@ViewBag.HoraSortParm">Hora</a></th>
+                <th style="font-size:17px"><a asp-controller="Paciente" asp-action="Citas" asp-route-sortOrder="@ViewBag.MedicoSortParm">Médico</a></th>
+                <th style="font-size:17px"><a asp-controller="Paciente" asp-action="Citas" asp-route-sortOrder="@ViewBag.EspecialidadSortParm">Especialidad</a></th>
+            </tr>
+            @foreach (var c in Model)
+            {
+                <tr>
+                    <td style="font-size:17px">@c.Fecha.ToString("dd/MM/yyyy")</td>
+                    <td style="font-size:17px">@c.Hora.ToShortTimeString()</td>
+                    <td style="font-size:17px">@c.Personal.Nombre @c.Personal.Apellidos</td>
+                    <td style="font-size:17px">@c.Personal.Especialidad.Nombre</td>
+                    <th>
+                        <a asp-controller="Paciente" asp-action="AnularCita" asp-route-citaId="@c.CitaId" class="btn btn-danger btnEliminar">Anular Cita</a>
+                        <a asp-controller="Paciente" asp-action="CambiarCita" asp-route-citaId="@c.CitaId" class="btn btn-success">Cambiar Cita</a>
+                    </th>
+                </tr>
+            }
+        </table>
+    </div>
+    <br />
+    <div>
+        <nav>
+            <ul class="pagination">
+                <li class="page-item">
+                    @if (Model.HasPreviousPage)
+                    {
+                        <a class="previous page-link" asp-action="Citas" asp-route-page="@(Model.PageNumber -1)">Anterior</a>
+                    }
+                    else
+                    {
+                        <a class="previous page-link" onclick="event.preventDefault()" asp-action="Citas" asp-route-page="@(Model.PageNumber -1)">Anterior</a>
+                    }
+                </li>
+                <li class="page-item">
+                    @for (int i = 1; i <= Model.PageCount; i++)
+                    {
+                        <a class="next page-link active" asp-action="Citas" asp-route-page="@i">@i</a>
+                    }
+                </li>
+                <li class="page-item">
+                    @if (Model.HasNextPage)
+                    {
+                        <a class="next page-link" asp-action="Citas" asp-route-page="@(Model.PageNumber +1)">Siguiente</a>
+                    }
+                    else
+                    {
+                        <a class="next page-link" onclick="event.preventDefault()" asp-action="Citas" asp-route-page="@(Model.PageNumber +1)">Siguiente</a>
+                    }
+                </li>
+            </ul>
+        </nav>
+        <p>Página @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount</p>
+    </div>
+}
+else
+{
+    <br />
+    <div>
+        <h4>No tiene citas concertadas</h4>
+    </div>
+}

@@ -1,0 +1,138 @@
+﻿@using HospitalNuget.Models
+@model Cita
+
+@{
+    ViewBag.Title = "CrearCita";
+    DateTime fechaSeleccionada = ViewBag.Fecha;
+}
+
+<h2>Concertar una nueva cita</h2>
+<hr />
+<div class="alignDerecha">
+    <a asp-controller="Paciente" asp-action="SeleccionarCita" class="btn btn-info">Volver</a>
+</div>
+
+<form asp-controller="Paciente" asp-action="CrearCita" method="post">
+    <div class="form-horizontal" asp-validation-summary="None">
+
+        <input type="hidden" asp-for="PersonalId" id="personalId" name="personalId" value="@ViewBag.PersonalId" />
+        <input type="hidden" asp-for="PacienteId" id="pacienteId" name="pacienteId" value="@ViewBag.PacienteId" />
+        <input type="hidden" asp-for="Personal.Turno" id="turno" name="turno" value="@ViewBag.Turno" />
+
+        <div class="form-group">
+            <label asp-for="Fecha" class="control-label col-md-2"></label>
+            <div class="col-md-10">
+                <input asp-for="@Model.Fecha" id="Fecha" value="@fechaSeleccionada.ToString("yyyy-MM-dd")" onchange="capturarFecha()" class="form-control" />
+                <span asp-validation-for="Fecha" class="text-danger"></span>
+                <div id="msgFecha"></div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="Horario" id="Horario" class="control-label col-md-2 control-label">Horario</label>
+            <div class="col-md-10">
+                <input type="text" readonly class="form-control" value="@ViewBag.Turno" />
+            </div>
+        </div>
+
+        <div class="form-group" id="bloqueHoras">
+            <label for="Hora" id="Hora" class="control-label col-md-2 control-label">Hora</label>
+            <div id="mostrarHoras" class="col-md-10">
+
+            </div>
+            <div id="msgHora"></div>
+        </div>
+
+        <div class="form-group" id="msgCapCitas"></div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" id="btnSubmit" value="Concertar cita" class="btn btn-success" />
+            </div>
+        </div>
+    </div>
+</form>
+
+@section scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            capturarHoras();
+
+            $("#btnSubmit").click(function (e) {
+                var turno = $("#turno").val();
+                var hora = $("input:radio[name=hora]:checked").val();
+                var fecha = $("#Fecha").val();
+                var medico = $("#personalId").val();
+                var paciente = $("#pacienteId").val();
+                if (turno == 0 || hora == undefined) {
+                    e.preventDefault();
+                    $("#msgHora").css("color", "red");
+                    $("#msgHora").html("Por favor, seleccione una hora disponible");
+                    return false;
+                }
+                $.ajax({
+                    url: '@Url.Action("_CheckCitaInDay", "Paciente")',
+                    dataType: "json",
+                    type: 'POST',
+                    async: false,
+                    cache: false,
+                    data: { selectedPersonal: medico, fecha: fecha, paciente: paciente },
+                    success: function (data) {
+                        if (data.success) {
+                            $("#msgCapCitas").css("color", "red");
+                            $("#msgCapCitas").html(data.message);
+                            e.preventDefault();
+                        }
+                        else {
+                            $("#msgCapCitas").html(data.message);
+                        }
+                    }
+                });
+            });
+        });
+
+         function capturarFecha(e) {
+            var fecha = $("#Fecha").val();
+            var d = new Date();
+            var currentDate = d.getFullYear() + "-" + ("0" + (d.getMonth() + 1)).slice(-2) + "-" + ("0" + d.getDate()).slice(-2);
+            var currentDateEsp = ("0" + d.getDate()).slice(-2) + "-" + ("0" + (d.getMonth() + 1)).slice(-2) + "-" + d.getFullYear();
+            $("#msgCapCitas").html("");
+
+            if (fecha < currentDate) {
+                e.preventDefault();
+                $("#msgFecha").css("color", "red");
+                $("#msgFecha").html("Por favor, la fecha debe ser a partir del " + currentDateEsp);
+                $("#bloqueHoras").html("");
+                return false;
+            }
+            else {
+                $("#msgFecha").html("");
+                capturarHoras();
+                return true;
+            }
+        }
+
+        function capturarHoras() {
+            var medico = $("#personalId").val();
+            var turno = $("#turno").val();
+            var fecha = $("#Fecha").val();
+            if (medico != 0 && turno != 0) {
+                $.ajax({
+                    url: '@Url.Action("_GetHorasDisponibles", "Paciente")',
+                    type: 'GET',
+                    data: { selectedPersonal: medico, turno: turno, fecha: fecha },
+                    success: function (result) {
+                        $("#mostrarHoras").html("");
+                        $("#mostrarHoras").html(result);
+                        $("#mostrarHoras").show();
+                    }
+                });
+            }
+            else {
+                $("#mostrarHoras").html("");
+                $("#mostrarHoras").hide();
+            }
+        }
+    </script>
+}

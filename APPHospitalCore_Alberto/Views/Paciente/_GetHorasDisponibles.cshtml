@@ -1,0 +1,41 @@
+﻿@model List<DateTime>
+@{
+    ViewBag.Title = "GetHorasDisponibles";
+    int contador = 1;
+}
+
+<style>
+    label {
+        width: 100px;
+    }
+</style>
+
+@if (Model.Count == 0)
+{
+    <h2 style="color:red">Lo sentimos, no quedan horas disponibles en esta fecha.</h2>
+}
+else
+{
+    <div class="form-group">
+        <div class="col-md-10" data-toggle="buttons">
+            @foreach (DateTime h in Model)
+            {
+                if (contador <= 5)
+                {
+                    <label class="btn btn-outline-primary">
+                        <input type="radio" name="hora" id="@h" value="@h" />@h.ToString("HH:mm tt")
+                    </label>
+                    contador = contador + 1;
+                }
+                else
+                {
+                    <label class="btn btn-outline-primary">
+                        <input type="radio" name="hora" id="@h" value="@h" />@h.ToString("HH:mm tt")
+                    </label>
+                    <br />
+                    contador = 1;
+                }
+            }
+        </div>
+    </div>
+}

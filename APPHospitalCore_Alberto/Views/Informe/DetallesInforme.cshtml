@@ -1,0 +1,65 @@
+﻿@using HospitalNuget.Models
+@model Informe
+@{
+    ViewBag.Title = "DetallesInforme";
+    int edad = ViewBag.Edad;
+}
+
+<div class="line-btn alignDerecha">
+    <a asp-controller="Informe" asp-action="Informes" asp-route-pacienteId="@Model.PacienteId" class="btn btn-info">Volver</a>
+    <button type="button" onclick="printDiv()" class="btn btn-success">Imprimir</button>
+</div>
+
+<div id="imprimirInforme">
+    <h2>INFORME DE @Model.Personal.Especialidad.Nombre.ToUpper()</h2>
+    <hr />
+    <div>
+        <div>
+            <h3>DATOS DEL PACIENTE</h3>
+            <table class="table table-borderless">
+                <tr>
+                    <td><strong>Paciente:</strong>  @Model.Paciente.Nombre @Model.Paciente.Apellidos</td>
+                    <td><strong>Fecha Nacimiento:</strong>  @Model.Paciente.Fecha_Nacimiento.ToShortDateString()</td>
+                </tr>
+                <tr>
+                    <td><strong>DNI:</strong>  @Model.Paciente.DNI</td>
+                    <td><strong>Número de la Seguridad Social:</strong>  @Model.Paciente.NSS</td>
+                </tr>
+                <tr>
+                    <td><strong>Domicilio:</strong>  @Model.Paciente.Direccion @Model.Paciente.CP @Model.Paciente.Ciudad</td>
+                    <td><strong>Edad:</strong>  @edad          <strong>Sexo:</strong> @Model.Paciente.Sexo</td>
+                </tr>
+                <tr>
+                    <td><strong>Teléfono: </strong>  @Model.Paciente.Telefono</td>
+                    <td><strong>Fecha de la valoración:</strong>  @Model.Fecha.ToShortDateString()</td>
+                </tr>
+            </table>
+        </div>
+
+        <div>
+            <h3>DIAGNÓSTICO</h3>
+            <textarea style="min-width:100%" readonly rows="15" cols="50">@Model.Diagnostico</textarea>
+        </div>
+
+        <div class="alignDerecha">
+            <p style="font-size:17px"><strong>Fdo.:</strong> @Model.Personal.Nombre @Model.Personal.Apellidos</p>
+            <p style="font-size:17px"><strong>Nº de Colegiado:</strong> @Model.Personal.NumColegiado</p>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script>
+        function printDiv() {
+            var divContents = document.getElementById("imprimirInforme").innerHTML;
+            var a = window.open('', '', 'height=500, width=500');
+            a.document.write('<html>');
+            a.document.write('<body>');
+            a.document.write(divContents);
+            a.document.write('</body></html>');
+            a.document.close();
+            a.print();
+        }
+    </script>
+}

@@ -1,0 +1,71 @@
+﻿@using APPHospitalCore_Alberto.ViewModels
+@model Perfil_ViewModel
+
+
+@{
+    ViewBag.Title = "VerPerfil";
+    int edad = ViewBag.Edad;
+}
+
+<h2>Perfil del usuario</h2>
+<hr />
+
+@if (Model.Paciente != null)
+{
+    <div>
+        <table class="table table-borderless">
+            <tr>
+                <td><strong>Paciente:</strong>  @Model.Paciente.Nombre @Model.Paciente.Apellidos</td>
+                <td><strong>Fecha Nacimiento:</strong>  @Model.Paciente.Fecha_Nacimiento.ToString("dd/MM/yyyy")</td>
+            </tr>
+            <tr>
+                <td><strong>DNI:</strong>  @Model.Paciente.DNI</td>
+                <td><strong>Número de la Seguridad Social:</strong>  @Model.Paciente.NSS</td>
+            </tr>
+            <tr>
+                <td><strong>Domicilio:</strong>  @Model.Paciente.Direccion @Model.Paciente.CP @Model.Paciente.Ciudad</td>
+                <td><strong>Edad:</strong>  @edad          <strong>Sexo:</strong> @Model.Paciente.Sexo</td>
+            </tr>
+            <tr>
+                <td><strong>Teléfono: </strong>  @Model.Paciente.Telefono</td>
+                <td><strong>Email: </strong>  @Model.Paciente.Email</td>
+            </tr>
+        </table>
+    </div>
+    <p class="alignDerecha">
+        <a asp-controller="Manage" asp-action="EditarPerfil" asp-route-pacienteId="@Model.Paciente.PacienteId" class="btn btn-success">Editar</a>
+        <a asp-controller="Home" asp-action="Index" class="btn btn-info">Volver al inicio</a>
+    </p>
+}
+@if (Model.Personal != null)
+{
+    <div>
+        <table class="table table-borderless">
+            <tr>
+                <td><strong>Paciente:</strong>  @Model.Personal.Nombre @Model.Personal.Apellidos</td>
+                <td><strong>Fecha Nacimiento:</strong>  @Model.Personal.Fecha_Nacimiento.ToString("dd/MM/yyyy")</td>
+            </tr>
+            <tr>
+                <td><strong>DNI:</strong>  @Model.Personal.DNI</td>
+                <td><strong>Número de Colegiado:</strong>  @Model.Personal.NumColegiado</td>
+            </tr>
+            <tr>
+                <td><strong>Turno:</strong>  @Model.Personal.NombreTurno</td>
+                <td><strong>Especialidad:</strong>  @Model.Personal.Especialidad.Nombre</td>
+            </tr>
+            <tr>
+                <td><strong>Domicilio:</strong>  @Model.Personal.Direccion @Model.Personal.Ciudad</td>
+                <td><strong>Edad:</strong>  @edad
+            </tr>
+            <tr>
+                <td><strong>Teléfono: </strong>  @Model.Personal.Telefono</td>
+                <td><strong>Email:</strong>  @Model.Personal.Email</td>
+            </tr>
+        </table>
+    </div>
+    <p class="alignDerecha">
+        <a asp-controller="Manage" asp-action="EditarPerfil" asp-route-personalId="@Model.Personal.PersonalId" class="btn btn-success">Editar</a>
+        <a asp-controller="Home" asp-action="Index" class="btn btn-info">Volver al inicio</a>
+    </p>
+}
+<br />

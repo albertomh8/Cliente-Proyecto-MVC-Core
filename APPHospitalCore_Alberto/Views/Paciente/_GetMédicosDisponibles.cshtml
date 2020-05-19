@@ -1,0 +1,14 @@
+﻿@using APPHospitalCore_Alberto.ViewModels
+@model CitasViewModel
+@{
+    ViewBag.Title = "GetMédicosDisponibles";
+}
+
+<div class="form-group">
+    <label asp-for="SelectedPersonal" id="Médico" class="control-label col-md-2 control-label">Médico</label>
+    <div class="col-md-10">
+        <select asp-for="SelectedPersonal" asp-items="@(new SelectList(Model.Personal,"PersonalId","MedicoEspecialidad"))" class="form-control">
+            <option selected="selected" value="0">--Selecciona Médico--</option>
+        </select>
+    </div>
+</div>

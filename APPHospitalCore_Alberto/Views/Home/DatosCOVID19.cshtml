@@ -1,0 +1,145 @@
+﻿@using APPHospitalCore_Alberto.Models
+@model List<Country>
+@{
+    ViewData["Title"] = "DatosCOVID19";
+    List<Country> countries = ViewData["countries"] as List<Country>;
+    string slug = ViewData["slug"].ToString();
+    DateTime startDate = DateTime.Parse(ViewData["startDate"].ToString());
+    DateTime endDate = DateTime.Parse(ViewData["endDate"].ToString());
+}
+
+<h1>Datos mundiales sobre el Covid19</h1>
+<br />
+<iframe style="width:100%;height:500px" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" title="2019-nCoV"
+        src="//arcgis.com/apps/Embed/index.html?webmap=14aa9e5660cf42b5b4b546dec6ceec7c&extent=77.3846,11.535,163.5174,52.8632&zoom=true&previewImage=false&scale=true&disable_scroll=true&theme=light">
+</iframe>
+<div>
+    <br />
+    <div>
+        <form method="post" asp-controller="Home" asp-action="DatosCOVID19">
+            <div class="form-horizontal" asp-validation-summary="All">
+                <div class="form-group">
+                    <div class="col-md-10">
+                        <select id="slug" name="slug" class="form-control">
+                            @foreach (Country c in countries)
+                            {
+                                if (slug == c.Slug)
+                                {
+                                    <option value="@c.Slug" selected>@c.Name</option>
+                                }
+                                else
+                                {
+                                    <option value="@c.Slug">@c.Name</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2">Primer día</label>
+                    <div class="col-md-10">
+                        <input type="date" id="startDate" name="startDate" class="form-control" value="@startDate.ToString("yyyy-MM-dd")" onchange="capturarFechaStart()" />
+                        <div id="msgStartDate"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2">Último día</label>
+                    <div class="col-md-10">
+                        <input type="date" id="endDate" name="endDate" class="form-control" value="@endDate.ToString("yyyy-MM-dd")" onchange="capturarFechaEnd()" />
+                        <div id="msgEndDate"></div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" id="btnSubmit" value="Buscar" class="btn btn-success" />
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    @if (Model != null)
+    {
+        @if (Model.Count() > 0)
+        {
+            <br />
+            if (endDate.ToShortDateString() == DateTime.Now.ToShortDateString())
+            {
+                <p style="font-weight:bold">*Los datos más recientes en este gráfico corresponden al día anterior al actual</p>
+            }
+            <ejs-chart id="container">
+                <e-chart-tooltipsettings enable="true">
+                </e-chart-tooltipsettings>
+                <e-chart-primaryxaxis valueType="DateTimeCategory"></e-chart-primaryxaxis>
+                <e-series-collection>
+                    <e-series dataSource="Model" name="Confirmed" xName="Date" width="2" opacity="1" yName="Confirmed" type="@Syncfusion.EJ2.Charts.ChartSeriesType.Column"></e-series>
+                    <e-series dataSource="Model" name="Deaths" xName="Date" width="2" opacity="1" yName="Deaths" type="@Syncfusion.EJ2.Charts.ChartSeriesType.Column"></e-series>
+                    <e-series dataSource="Model" name="Recovered" xName="Date" width="2" opacity="1" yName="Recovered" type="@Syncfusion.EJ2.Charts.ChartSeriesType.Column"></e-series>
+                </e-series-collection>
+            </ejs-chart>
+        }
+        else
+        {
+            <h3 style="color:red">No hay datos disponibles de ese país/región</h3>
+        }
+    }
+</div>
+
+@section scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#btnSubmit").click(function (e) {
+                var checkStartDate = capturarFechaStart();
+                var checkEndDate = capturarFechaEnd();
+                if (checkStartDate == false || checkEndDate == false) {
+                    e.preventDefault();
+                }
+            })
+        })
+
+        function capturarFechaStart() {
+            var startDate = $("#startDate").val();
+            var endDate = $("#endDate").val();
+            var d = new Date();
+            var currentDate = d.getFullYear() + "-" + ("0" + (d.getMonth() + 1)).slice(-2) + "-" + ("0" + d.getDate()).slice(-2);
+            var currentDateEsp = ("0" + d.getDate()).slice(-2) + "-" + ("0" + (d.getMonth() + 1)).slice(-2) + "-" + d.getFullYear();
+
+            if (startDate > currentDate) {
+                $("#msgStartDate").css("color", "red");
+                $("#msgStartDate").html("Por favor, la fecha no debe superar el dia actual (" + currentDateEsp + ")");
+                return false;
+            }
+            else if (startDate > endDate) {
+                $("#msgStartDate").css("color", "red");
+                $("#msgStartDate").html("Por favor, la fecha de inicio no debe superar al último día");
+                return false;
+            }
+            else if (startDate == endDate) {
+                $("#msgStartDate").css("color", "red");
+                $("#msgStartDate").html("Por favor, la fecha de inicio debe diferir de la del último día");
+                return false;
+            }
+            else {
+                $("#msgStartDate").html("");
+                return true;
+            }
+        }
+
+        function capturarFechaEnd() {
+            var endDate = $("#endDate").val();
+            var d = new Date();
+            var currentDate = d.getFullYear() + "-" + ("0" + (d.getMonth() + 1)).slice(-2) + "-" + ("0" + d.getDate()).slice(-2);
+            var currentDateEsp = ("0" + d.getDate()).slice(-2) + "-" + ("0" + (d.getMonth() + 1)).slice(-2) + "-" + d.getFullYear();
+
+            if (endDate > currentDate) {
+                $("#msgEndDate").css("color", "red");
+                $("#msgEndDate").html("Por favor, la fecha no debe superar el dia actual (" + currentDateEsp + ")");
+                return false;
+            }
+            else {
+                $("#msgEndDate").html("");
+                return true;
+            }
+        }
+    </script>
+}

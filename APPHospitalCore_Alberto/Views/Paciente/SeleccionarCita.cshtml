@@ -1,0 +1,105 @@
+﻿@using HospitalNuget.Models
+@using APPHospitalCore_Alberto.ViewModels
+@model Cita
+@{
+    ViewBag.Title = "SeleccionarCita";
+}
+
+<h2>Concertar una nueva cita</h2>
+<hr />
+
+<div class="alignDerecha">
+    <a asp-controller="Paciente" asp-action="Citas" class="btn btn-info">Volver a la lista de citas</a>
+</div>
+<form asp-controller="Paciente" asp-action="SeleccionarCita" method="post">
+    <div class="form-horizontal" asp-validation-summary="None">
+        <div class="form-group">
+            <label asp-for="Fecha" class="control-label col-md-2"></label>
+            <div class="col-md-10">
+                <input asp-for="Fecha" class="form-control" onchange="capturarFecha()" />
+                <span asp-validation-for="Fecha" class="text-danger"></span>
+                <div id="msgFecha"></div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="Horario" id="Horario" class="control-label col-md-2 control-label">Horario</label>
+            <div class="col-md-10">
+                <select name="turno" id="turno" asp-items="Html.GetEnumSelectList(typeof(Turno))" onchange="capturarTurno()" class="form-control">
+                    <option selected="selected" value="0">--Selecciona horario--</option>
+                </select>
+                <div id="msg"></div>
+            </div>
+        </div>
+
+        <div id="mostrarMedicos">
+
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" id="btnSubmit" value="Buscar horas libres" class="btn btn-success" />
+            </div>
+        </div>
+    </div>
+</form>
+
+@section scripts
+{
+        <script type="text/javascript">
+        $(document).ready(function () {
+            $("#btnSubmit").click(function (e) {
+                var turno = $("#turno").val();
+                if (turno == 0) {
+                    e.preventDefault();
+                    $("#msg").css("color", "red");
+                    $("#msg").html("Por favor, selecciona un horario");
+                    return false;
+                }
+                var fecha = capturarFecha();
+                if (fecha == false) {
+                    e.preventDefault();
+                    return false;
+                }
+            });
+        });
+
+        function capturarFecha() {
+            var fecha = $("#Fecha").val();
+            var d = new Date();
+            var currentDate = d.getFullYear() + "-" + ("0" + (d.getMonth() + 1)).slice(-2) + "-" + ("0" + d.getDate()).slice(-2);
+            var currentDateEsp = ("0" + d.getDate()).slice(-2) + "-" + ("0" + (d.getMonth() + 1)).slice(-2) + "-" + d.getFullYear();
+            if (fecha < currentDate) {
+                $("#msgFecha").css("color", "red");
+                $("#msgFecha").html("Por favor, la fecha debe ser a partir del " + currentDateEsp);
+                return false;
+            }
+            else {
+                $("#msgFecha").html("");
+                return true;
+            }
+        }
+
+        function capturarTurno() {
+            var turno = $("#turno").val();
+            var fecha = capturarFecha();
+            if (turno != 0 && fecha == true) {
+                $("#msg").html("");
+                $.ajax({
+                    url: '@Url.Action("_GetMédicosDisponibles", "Paciente")',
+                    type: 'GET',
+                    data: { turno: turno },
+                    success: function (result) {
+                        $("#mostrarMedicos").html("");
+                        $("#mostrarMedicos").show();
+                        $("#mostrarMedicos").html(result);
+                    }
+                });
+            }
+            else {
+                $("#mostrarMedicos").html("");
+                $("#mostrarMedicos").hide();
+            }
+        }
+        </script>
+    }

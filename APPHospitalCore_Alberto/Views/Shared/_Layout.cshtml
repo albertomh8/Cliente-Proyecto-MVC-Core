@@ -1,0 +1,282 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>CareMed</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="CareMed demo project">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <environment include="development,production">
+        <link href="~/css/bootstrap.min.css" rel="stylesheet" />
+        <link href="~/css/font-awesome.css" rel="stylesheet" />
+        <link href="~/css/owl.carousel.css" rel="stylesheet" />
+        <link href="~/css/owl.theme.default.css" rel="stylesheet" />
+        <link href="~/css/animate.css" rel="stylesheet" />
+        <link href="~/css/main_styles.css" rel="stylesheet" />
+        <link href="~/css/responsive.css" rel="stylesheet" />
+        <link href="~/css/custom.css" rel="stylesheet" />
+
+        <link href="~/css/daterangepicker.css" rel="stylesheet" />
+        <link href="~/css/sweetalert2.min.css" rel="stylesheet" />
+        <link href="~/css/pagedlist.css" rel="stylesheet" />
+        <link href="~/css/main.css" rel="stylesheet" />
+        <link href="~/css/site.css" rel="stylesheet" />
+
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdn.syncfusion.com/ej2/material.css" />
+    </environment>
+</head>
+<body>
+    <div class="super_container">
+        <!-- Header -->
+        <header class="header trans_200">
+            <!-- Top Bar -->
+            <div class="top_bar">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <div class="top_bar_content d-flex flex-row align-items-center justify-content-start">
+                                @*<div class="top_bar_item"><a href="#">FAQ</a></div>
+                                    <div class="top_bar_item"><a href="#">Request an Appointment</a></div>*@
+                                <div class="emergencies  d-flex flex-row align-items-center justify-content-start ml-auto">Emergencias: +34 914 77 25 00</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Header Content -->
+            <div>
+                @await Component.InvokeAsync("Enlaces")
+            </div>
+
+            <div class="header_container">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <div class="header_content d-flex flex-row align-items-center justify-content-start">
+                                <nav class="main_nav ml-auto">
+                                    <ul><li></li></ul>
+                                </nav>
+                                @*@if (User.IsInRole("Administrador"))
+                                {
+                                    <nav class="main_nav ml-auto" style="padding-left:215px">
+                                        <ul><li></li></ul>
+                                    </nav>
+                                }*@
+                                <nav class="main_nav ml-auto">
+                                    <ul>
+                                        <li><a asp-action="Index" asp-controller="Home">Inicio</a></li>
+                                        <li><a asp-action="About" asp-controller="Home">Conócenos</a></li>
+                                        <li><a asp-action="Services" asp-controller="Home">Servicios</a></li>
+                                        <li><a asp-action="News" asp-controller="Home">Noticias</a></li>
+                                        <li><a asp-action="DatosCOVID19" asp-controller="Home">Covid19</a></li>
+                                        @*@if (User.IsInRole("Administrador"))
+                                        {
+                                            <li><a asp-action="ListaUsuarios" asp-controller="Administrador" style="color:red">Administración</a></li>
+                                        }*@
+                                    </ul>
+                                </nav>
+                                <nav class="main_nav ml-auto">
+                                    <ul>
+                                        <partial name="_LoginPartial" />
+                                    </ul>
+                                </nav>
+                                <div class="hamburger ml-auto"><i class="fa fa-bars" aria-hidden="true"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Logo -->
+            <div class="logo_container_outer">
+                <div class="container" style="z-index: 1">
+                    <div class="float-left">
+                    </div>
+                    <div class="row logoCustom">
+                        <div class="col">
+                            <div class="logo_container">
+                                <a href="#">
+                                    <div class="logo_content d-flex flex-column align-items-start justify-content-center ">
+                                        <div class="logo_line"></div>
+                                        <div class="logo d-flex flex-row align-items-center justify-content-center">
+                                            <div class="logo_text">Care<span>Med</span></div>
+                                            <div class="logo_box">+</div>
+                                        </div>
+                                        <div class="logo_sub">Health Care Center</div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </header>
+
+        <!-- Menu -->
+
+        <div class="menu_container menu_mm">
+
+            <!-- Menu Close Button -->
+            <div class="menu_close_container">
+                <div class="menu_close"></div>
+            </div>
+
+            <!-- Menu Items -->
+            <div class="menu_inner menu_mm">
+                <div class="menu menu_mm">
+                    <ul class="menu_list menu_mm">
+                        <li><a asp-action="Index" asp-controller="Home">Inicio</a></li>
+                        <li><a asp-action="About" asp-controller="Home">Conócenos</a></li>
+                        <li><a asp-action="Services" asp-controller="Home">Servicios</a></li>
+                        <li><a asp-action="News" asp-controller="Home">Noticias</a></li>
+                        @if (User.IsInRole("Administrador"))
+                        {
+                            <li><a asp-action="ListaUsuarios" asp-controller="Administrador" style="color:red">Administración</a></li>
+                        }
+                    </ul>
+                </div>
+                <div class="menu_extra">
+                    <ul class="menu_list menu_mm">
+                        <partial name="_LoginPartial" />
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Home -->
+        <div class="container body-content" style="min-height:300px;padding-left:180px">
+            @RenderBody()
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer_container">
+                <div class="container">
+                    <div class="row">
+                        <!-- Footer - About -->
+                        <div class="col-lg-4 footer_col">
+                            <div class="footer_about">
+                                <div class="footer_logo_container">
+                                    <a href="#" class="d-flex flex-column align-items-center justify-content-center">
+                                        <div class="logo_content">
+                                            <div class="logo d-flex flex-row align-items-center justify-content-center">
+                                                <div class="logo_text">Care<span>Med</span></div>
+                                                <div class="logo_box">+</div>
+                                            </div>
+                                            <div class="logo_sub">Health Care Center</div>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="footer_title">Contactanos</div>
+                                <ul class="footer_about_list">
+                                    <li><div class="footer_about_icon"><img src="~/Images/phone-call.svg" alt=""></div><span>+34 91 535 11 68</span></li>
+                                    <li><div class="footer_about_icon"><img src="~/Images/envelope.svg" alt=""></div><span>office@hospital.com</span></li>
+                                    <li><div class="footer_about_icon"><img src="~/Images/placeholder.svg" alt=""></div><span>Plaza Cardenal Cisneros nº 46, 28040, Madrid</span></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Footer - Links -->
+                        <div class="col-lg-4 footer_col">
+                            <br />
+                            <div class="footer_links footer_column">
+                                <div class="footer_title">Enlaces útiles</div>
+                                <ul>
+                                    <li style="color:white"><a asp-action="About" asp-controller="Home">Testimonios</a></li>
+                                    <li><a href="#">Solicitar un trabajo</a></li>
+                                    <li><a href="#">Términos y condiciones</a></li>
+                                    <li><a asp-action="Services" asp-controller="Home">Servicios</a></li>
+                                    <li><a asp-action="About" asp-controller="Home">Conocenos</a></li>
+                                    <li><a asp-action="News" asp-controller="Home">Noticias</a></li>
+                                    <li><a href="#">Contacto</a></li>
+                                    <li><a href="#">FAQ</a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Footer - News -->
+                        <div class="col-lg-4 footer_col">
+                            <br />
+                            <div class="footer_news footer_column">
+                                <div class="footer_title">Últimas noticias</div>
+                                <ul>
+                                    <li>
+                                        <div class="footer_news_title"><a asp-controller="Home" asp-action="News">Día Mundial de las Enfermedades Rara</a></div>
+                                        <div class="footer_news_date">Febrero 26, 2020</div>
+                                    </li>
+                                    <li>
+                                        <div class="footer_news_title"><a asp-controller="Home" asp-action="News">Coronavirus: ha matado a más personas que el SARS y el MERS</a></div>
+                                        <div class="footer_news_date">Febrero 19, 2020</div>
+                                    </li>
+                                    <li>
+                                        <div class="footer_news_title"><a asp-controller="Home" asp-action="News">¿Cuánto nos cuesta la salud?</a></div>
+                                        <div class="footer_news_date">Febrero 15, 2020</div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="copyright">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <div class="copyright_content d-flex flex-lg-row flex-column align-items-lg-center justify-content-start">
+                                <div class="cr">
+                                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                                    @*Copyright &copy;*@
+                                    <script>
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                                        document.write(new Date().toLocaleDateString('es-ES', options));</script> @*All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>*@
+                                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                                    </div>
+                                    <div class="footer_social ml-lg-auto">
+                                        <ul>
+                                            <li><a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
+                                            <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                                            <li><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+                                            <li><a href="#"><i class="fa fa-dribbble" aria-hidden="true"></i></a></li>
+                                            <li><a href="#"><i class="fa fa-behance" aria-hidden="true"></i></a></li>
+                                            <li><a href="#"><i class="fa fa-linkedin" aria-hidden="true"></i></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+        <environment include="Development,Production">
+            <script src="~/js/jquery-3.2.1.min.js"></script>
+            <script src="~/js/jquery.unobtrusive-ajax.js"></script>
+            <script src="~/js/popper.js"></script>
+            <script src="~/js/bootstrap.min.js"></script>
+            <script src="~/js/owl.carousel.js"></script>
+            <script src="~/js/easing.js"></script>
+            <script src="~/js/parallax.min.js"></script>
+            <script src="~/js/custom.js"></script>
+
+            <script src="~/js/animation.gsap.min.js"></script>
+            <script src="~/js/contact.js"></script>
+            <script src="~/js/countdowntime.js"></script>
+            <script src="~/js/daterangepicker.js"></script>
+            <script src="~/js/elements.js"></script>
+            <script src="~/js/main.js"></script>
+            <script src="~/js/moment.min.js"></script>
+            <script src="~/js/select2.min.js"></script>
+            <script src="~/js/site.js"></script>
+            <script src="~/js/sweetalert2.min.js"></script>
+
+            <script src="https://cdn.syncfusion.com/ej2/dist/ej2.min.js"></script>
+        </environment>
+        @RenderSection("scripts", required: false)
+        <ejs-scripts></ejs-scripts>
+    </body>
+</html>

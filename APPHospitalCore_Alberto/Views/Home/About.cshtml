@@ -1,0 +1,232 @@
+﻿@{
+    ViewBag.Title = "About";
+}
+
+<environment include="Development,Production">
+    <link href="~/css/about.css" rel="stylesheet" />
+    <link href="~/css/about_responsive.css" rel="stylesheet" />
+</environment>
+   
+    <div class="super_container">
+        <!-- About -->
+        <div class="about">
+            <div class="container">
+                <div class="row">
+                    <!-- About Content -->
+                    <div class="col-lg-8">
+                        <div class="section_title"><h2>Un gran equipo médico para atender sus necesidades.</h2></div>
+                        <div class="about_text">
+                            <p>
+                                Nuestro centro está dotado de un capital humano altamente cualificado, que busca la excelencia en todas sus actuaciones,
+                                y que cuenta con una de las carteras de servicio más amplias y competitivas del país. Casi 600 residentes de 48 especialidades diferentes
+                                estaban realizando su formación en el Hospital Universitario La Paz durante el año 2018,
+                                además de los casi 50 integrantes de las tres especialidades de Enfermería.
+                            </p>
+                            <p>
+                                Le invitamos a continuar su visita por nuestro hospital a través de los contenidos de esta página, en la que no sólo mostramos lo que
+                                somos y hacemos, sino que también esperamos recibir sugerencias que nos ayuden a mejorar, porque nuestra razón de ser es el paciente,
+                                norte y guia de todas nuestras actuaciones y en quien volcamos nuestros esfuerzos y conocimiento para prestarle la mejor asistencia posible.
+                                Gracias por contactar con nosotros.
+                            </p>
+                        </div>
+                        <div class="row loaders_container">
+                            <div class="col-md-3 loader_col">
+                                <!-- Loader -->
+                                <div class="loader" data-perc="0.95"><span>Trabajo duro</span></div>
+                            </div>
+                            <div class="col-md-3 loader_col">
+                                <!-- Loader -->
+                                <div class="loader" data-perc="0.90"><span>Pasión</span></div>
+                            </div>
+                            <div class="col-md-3 loader_col">
+                                <!-- Loader -->
+                                <div class="loader" data-perc="1.00"><span>Cualificación</span></div>
+                            </div>
+                            <div class="col-md-3 loader_col">
+                                <!-- Loader -->
+                                <div class="loader" data-perc="0.98"><span>Profesionalidad</span></div>
+                            </div>
+                        </div>
+                        <div class="button about_button"><a asp-controller="Home" asp-action="Services">Saber más</a></div>
+                    </div>
+
+                    <!-- Boxes -->
+                    <div class="col-lg-4 boxes_col">
+
+                        <!-- Box -->
+                        <div class="box working_hours">
+                            <div class="box_icon d-flex flex-column align-items-start justify-content-center"><div style="width:29px; height:29px;"><img src="~/Images/alarm-clock.svg" alt=""></div></div>
+                            <div class="box_title">Horas Laborales</div>
+                            <div class="working_hours_list">
+                                <ul>
+                                    <li class="d-flex flex-row align-items-center justify-content-start">
+                                        <div>Lunes – Viernes</div>
+                                        <div class="ml-auto">9.00 – 21.00</div>
+                                    </li>
+                                    <li class="d-flex flex-row align-items-center justify-content-start">
+                                        <div>Sábados</div>
+                                        <div class="ml-auto">9.30 – 21.00</div>
+                                    </li>
+                                    <li class="d-flex flex-row align-items-center justify-content-start">
+                                        <div>Domingos</div>
+                                        <div class="ml-auto">9.30 – 20.30</div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Box -->
+                        @*<div class="box box_appointments">
+                                <div class="box_icon d-flex flex-column align-items-start justify-content-center"><div style="width: 29px; height:29px;"><img src="~/Images/phone-call.svg" alt=""></div></div>
+                                <div class="box_title">Citas</div>
+                                <div class="box_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ante leo, finibus quis est ut, tempor tincidunt ipsum. Nam cons equat semper sollicitudin.</div>
+                            </div>*@
+
+                        <!-- Box -->
+                        <div class="box box_emergency">
+                            <div class="box_icon d-flex flex-column align-items-start justify-content-center"><div style="width: 37px; height:37px; margin-left:-4px;"><img src="~/Images/bell.svg" alt=""></div></div>
+                            <div class="box_title">Casos de Emergencia</div>
+                            <div class="box_phone">+34 914 77 25 00</div>
+                            <div class="box_emergency_text">LLame a este teléfono para cualquer emergencia médica.</div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Testimonials -->
+
+        <div class="testimonials">
+            <div class="testimonials_background parallax-window" data-parallax="scroll" style="background-image:url(../../Images/testimonials.jpg)" data-speed="0.8"></div>
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <div class="section_title section_title_light"><h2>Testimonios de pacientes</h2></div>
+                    </div>
+                </div>
+                <div class="row test_row">
+
+                    <!-- Testimonial -->
+                    <div class="col-lg-6 test_col">
+                        <div class="testimonial">
+                            <div class="test_icon d-flex flex-column align-items-center justify-content-center"><img src="~/Images/quote.png" alt=""></div>
+                            <div class="test_text">
+                                Mi marido y yo quisiéramos expresar nuestra más sincera gratitud por el excelente servicio y atención que recibí de
+                                cada miembro de este hospital. Es decir, enfermeras / auxiliares / fisio / rayos X y personal de cocina,
+                                durante mi estancia del 20/01/20 al 25/01/20, tras una intervención de reemplazo de cadera.
+                            </div>
+                            <div class="test_author d-flex flex-row align-items-center justify-content-start">
+                                <div class="test_author_image"><div><img src="~/Images/test_1.jpg" alt=""></div></div>
+                                <div class="test_author_name"><a href="#">Claire Smith</a>, <span>Paciente</span></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Testimonial -->
+                    <div class="col-lg-6 test_col">
+                        <div class="testimonial">
+                            <div class="test_icon d-flex flex-column align-items-center justify-content-center"><img src="~/Images/quote.png" alt=""></div>
+                            <div class="test_text">
+                                En 1987, cuando me encontraba en la plenitud de mi vida la leucemia se cruzó en mi camino. Como para cualquiera,
+                                fue un golpe muy duro y el primer momento fue muy difícil de aceptar.Independientemente del tratamiento médico, creo que es muy importante para los pacientes intentar tener una actitud positiva
+                                ante la enfermedad. En mi caso, estoy convencido que esta actitud, un extraordinario equipo médico junto a la entrega e incansable apoyo
+                                de mi familia fueron las claves de mi recuperación.
+                            </div>
+                            <div class="test_author d-flex flex-row align-items-center justify-content-start">
+                                <div class="test_author_image"><div><img src="~/Images/test_2.jpg" alt=""></div></div>
+                                <div class="test_author_name"><a href="#">Mick Williams</a>, <span>Paciente</span></div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Team -->
+
+        <div class="team">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <div class="section_title"><h2>Conoce a nuestro equipo médico</h2></div>
+                    </div>
+                </div>
+                <div class="row team_row">
+
+                    <!-- Team Member -->
+                    <div class="col-lg-3 team_col">
+                        <div class="team_member">
+                            <div class="team_member_image d-flex flex-column align-items-center justify-content-end"><img src="~/Images/team_1.png" alt=""></div>
+                            <div class="team_member_info">
+                                <div class="team_member_name"><a href="#">Dr. Melissa Smith</a></div>
+                                <div class="team_member_title">Cardióloga</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Team Member -->
+                    <div class="col-lg-3 team_col">
+                        <div class="team_member">
+                            <div class="team_member_image d-flex flex-column align-items-center justify-content-end"><img src="~/Images/team_2.png" alt=""></div>
+                            <div class="team_member_info">
+                                <div class="team_member_name"><a href="#">Dr. Josh Henderson</a></div>
+                                <div class="team_member_title">Cirujano plástico</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Team Member -->
+                    <div class="col-lg-3 team_col">
+                        <div class="team_member">
+                            <div class="team_member_image d-flex flex-column align-items-center justify-content-end"><img src="~/Images/team_3.png" alt=""></div>
+                            <div class="team_member_info">
+                                <div class="team_member_name"><a href="#">Dr. Christinne Jones</a></div>
+                                <div class="team_member_title">Pediatra</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Team Member -->
+                    <div class="col-lg-3 team_col">
+                        <div class="team_member">
+                            <div class="team_member_image d-flex flex-column align-items-center justify-content-end"><img src="~/Images/team_4.png" alt=""></div>
+                            <div class="team_member_info">
+                                <div class="team_member_name"><a href="#">Dr. William Stan</a></div>
+                                <div class="team_member_title">Médico general</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Call to action -->
+        @*<div class="cta">
+                <div class="cta_background parallax-window" data-parallax="scroll" style="background-image:url(../../Images/cta.jpg)" data-speed="0.8"></div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <div class="cta_content text-center">
+                                <h2>Need a personal health plan?</h2>
+                                <p>Duis massa massa, mollis vel ullamcorper quis, finibus et urna. Aliquam ac eleifend metus. Ut sollicitudin risus ex</p>
+                                <div class="button cta_button"><a href="#">request a plan</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>*@
+    </div>
+
+<environment include="Development,Production">
+    <script src="~/js/TweenMax.min.js"></script>
+    <script src="~/js/TimelineMax.min.js"></script>
+    <script src="~/js/ScrollMagic.min.js"></script>
+    <script src="~/js/animation.gsap.min.js"></script>
+    <script src="~/js/ScrollToPlugin.min.js"></script>
+    <script src="~/js/progressbar.min.js"></script>
+    <script src="~/js/owl.carousel.js"></script>
+    <script src="~/js/about.js"></script>
+</environment>

@@ -1,0 +1,74 @@
+﻿@using PagedList;
+@model IPagedList<HospitalNuget.Models.Informe>
+@{
+    ViewBag.Title = "Informes";
+}
+
+<h2>Sus informes</h2>
+<hr />
+<div>
+    <form asp-controller="Informe" asp-action="Informes" asp-route-pacienteId="@ViewBag.PacienteId" method="post">
+        <p style="font-family: Ubuntu-Regular, sans-serif; font-size:24px">
+            Buscar por Descripción o Médico: <input class="form-control" style="display:inline; margin-left:2%;margin-right:2%" type="text" name="SearchString" />
+            <input type="submit" value="Buscar" class="btn btn-success" />
+            <a asp-controller="Home" asp-action="Index" class="btn btn-info">Volver</a>
+        </p>
+    </form>
+</div>
+<br />
+<div>
+    <table class="table table-hover">
+        <tr>
+            <th><a asp-controller="Informe" asp-action="Informes" asp-route-sortOrder="@ViewBag.DescripcionSortParm" asp-route-pacienteId="@ViewBag.PacienteId">Descripción</a></th>
+            <th><a asp-controller="Informe" asp-action="Informes" asp-route-sortOrder="@ViewBag.FechaSortParm" asp-route-pacienteId="@ViewBag.PacienteId">Fecha</a></th>
+            <th><a asp-controller="Informe" asp-action="Informes" asp-route-sortOrder="@ViewBag.MedicoSortParm" asp-route-pacienteId="@ViewBag.PacienteId">Médico</a></th>
+            <th></th>
+        </tr>
+        @foreach (var i in Model)
+        {
+            <tr>
+                <td>@i.Descripcion</td>
+                <td>@i.Fecha.ToShortDateString()</td>
+                <td>@i.Personal.Nombre @i.Personal.Apellidos</td>
+                <td><a asp-controller="Informe" asp-action="DetallesInforme" asp-route-informeId="@i.InformeId" class="btn btn-info">Detalles</a></td>
+                @if (i.Personal.PersonalId == ViewBag.MedicoId)
+                {
+                    <td><a asp-controller="Informe" asp-action="EditarInforme" asp-route-informeId="@i.InformeId" class="btn btn-success">Editar</a></td>
+                }
+            </tr>
+        }
+    </table>
+</div>
+<div>
+    <nav>
+        <ul class="pagination">
+            <li class="page-item">
+                @if (Model.HasPreviousPage)
+                {
+                    <a class="previous page-link" asp-action="Informes" asp-route-page="@(Model.PageNumber -1)">Anterior</a>
+                }
+                else
+                {
+                    <a class="previous page-link" onclick="event.preventDefault()" asp-action="Informes" asp-route-page="@(Model.PageNumber -1)">Anterior</a>
+                }
+            </li>
+            <li class="page-item">
+                @for (int i = 1; i <= Model.PageCount; i++)
+                {
+                    <a class="next page-link active" asp-action="Informes" asp-route-page="@i">@i</a>
+                }
+            </li>
+            <li class="page-item">
+                @if (Model.HasNextPage)
+                {
+                    <a class="next page-link" asp-action="Informes" asp-route-page="@(Model.PageNumber +1)">Siguiente</a>
+                }
+                else
+                {
+                    <a class="next page-link" onclick="event.preventDefault()" asp-action="Informes" asp-route-page="@(Model.PageNumber +1)">Siguiente</a>
+                }
+            </li>
+        </ul>
+    </nav>
+    <p>Página @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) de @Model.PageCount</p>
+</div>
